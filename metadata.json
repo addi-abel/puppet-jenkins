@@ -1,0 +1,25 @@
+{
+  "name": "jenkins",
+  "version": "1.0.0",
+  "author": "Addi Abel, addi.abel@gmail.com>",
+  "summary": "Manage the Jenkins CI install with Puppet",
+  "license": "Apache-2.0",
+  "source": "https://github.com/addi-abel/puppet-jenkins",
+  "project_page": "https://github.com/addi-abel/puppet-jenkins",
+  "issues_url": "https://github.com/addi-abel/puppet-jenkins/issues",
+  "tags": [
+    "jenkins",
+    "jenkinsci"
+  ],
+  "operatingsystem_support": [
+    {"operatingsystem": "CentOS",                "operatingsystemrelease":["6", "7"]},
+    {"operatingsystem": "RedHat",                "operatingsystemrelease":["6", "7"]}
+  ],
+  "dependencies": [
+    {"name":"puppetlabs-stdlib",                 "version_requirement":">= 4.2.0 < 5.0.0"},
+    {"name":"puppetlabs-java",                   "version_requirement":">= 1.0.1 < 3.0.0"},
+    {"name":"saz-sudo",                          "version_requirement":">= 3.0.0 < 5.0.0"},
+    {"name":"crayfishx-firewalld",               "version_requirement":">= 3.0.0 < 5.0.0"},
+    {"name":"puppet-archive",                    "version_requirement":">= 1.1.2 < 2.0.0"}
+  ]
+}

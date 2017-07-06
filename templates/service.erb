@@ -1,0 +1,25 @@
+[Unit]
+Description=Jenkins - the extendable continuous integration server
+Documentation=man:none https://jenkins.io/
+After=network.target
+
+[Service]
+User=<%= @user %>
+Type=simple
+EnvironmentFile=-/etc/sysconfig/<%= @user %>
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=<%= @user %>
+ExecStart=/bin/sh -c 'eval ${JENKINS_COMMAND_LINE}'
+MemoryLimit=<%= @jvm_memory %>M
+OOMScoreAdjust=-1000
+LimitCPU=infinity
+LimitFSIZE=infinity
+LimitDATA=infinity
+LimitCORE=0
+LimitAS=infinity
+LimitLOCKS=infinity
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,28 @@
+####################################################################
+##                                                                ##
+##                                                                ##
+##    Service configuration for Jenkins                           ##
+##                                                                ##
+##                                                                ##
+####################################################################
+#
+# Do not change anything of this, unless you know what you're doing.
+#
+JENKINS_USER="<%= @user %>"
+JENKINS_HOME="<%= @home_dir %>"
+JENKINS_JAVA_CMD="/usr/bin/java"
+JENKINS_JAVA_ARGS="-Xmx<%= @jvm_memory %>m"
+JENKINS_JAVA_OPTIONS="-Dcom.sun.akuma.Daemon=daemonized <%= @jenkins_tmp %> -Djava.awt.headless=true <%= @jenkins_setup %> -DJENKINS_HOME=$JENKINS_HOME"
+JENKINS_LOGFILE="--logfile=/var/log/<%= @user %>/<%= @user %>.log"
+JENKINS_DEBUG_LEVEL="--debug=5"
+JENKINS_ENABLE_ACCESS_LOG="no"
+JENKINS_HANDLER_MAX="100"
+JENKINS_HANDLER_IDLE="20"
+JENKINS_ARGS="--prefix=/<%= @jenkins_url %>"
+JENKINS_WAR="/usr/lib/jenkins/jenkins.war"
+JENKINS_WEBROOT="--webroot=/var/cache/jenkins/war"
+JENKINS_PORT="--httpPort=<%= @jvm_port %>"
+JENKINS_AJPPORT="--ajp13Port=-1"
+JENKINS_OPTS="--daemon --handlerCountMax=$JENKINS_HANDLER_MAX --handlerCountMaxIdle=$JENKINS_HANDLER_IDLE"
+
+JENKINS_COMMAND_LINE="$JENKINS_JAVA_CMD $JENKINS_JAVA_ARGS $JENKINS_JAVA_OPTIONS -jar $JENKINS_WAR $JENKINS_LOGFILE $JENKINS_WEBROOT $JENKINS_PORT $JENKINS_AJPPORT $JENKINS_DEBUG_LEVEL $JENKINS_ARGS $JENKINS_OPTS"
