@@ -11,12 +11,14 @@
 #
 class jenkins::plugins (
   $package_name       = $jenkins::params::package_name,
+  $version            = $jenkins::params::version,
   $jvm_port           = $jenkins::params::jvm_port,
   $user               = $jenkins::params::user,
   $home_dir           = $jenkins::params::home_dir,
   $jenkins_url        = $jenkins::params::jenkins_url,
-  $plugin_location    = $jenkins::params::plugin_location,
   $plugin_cli         = $jenkins::params::plugin_cli,
+  $plugin_location    = $jenkins::params::plugin_location,
+  $plugin_update      = $jenkins::params::plugin_update,
   $plugins            = $jenkins::pluginlist::plugins
 ) inherits jenkins::params {
 
@@ -32,12 +34,10 @@ class jenkins::plugins (
   notify { "## --->>> Installing plugins for package: ${package_name}": }
 
   $plugins.each | String $plugin | {
-    $plugin_array = split($plugin, 'hpi')
-    $plugin_name  = "${plugin_array[0]}jpi"
-    notify { "## --->>> creating: ${home_dir}/plugins/${plugin_name}": }
+    notify { "## --->>> creating: ${home_dir}/plugins/${plugin}": }
     exec { $plugin:
-      command   => "java -jar ${plugin_cli} -s http://localhost:${jvm_port}/${jenkins_url}/ install-plugin ${plugin_location}/${plugin} -deploy",
-      creates   => "${home_dir}/plugins/${plugin_name}",
+      command   => "java -jar ${plugin_cli} -s http://localhost:${jvm_port}/${jenkins_url}/ install-plugin ${plugin_location}/${version}-${plugin_update}/${plugin}.hpi -deploy",
+      creates   => "${home_dir}/plugins/${plugin}",
       path      => '/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin/:/bin/:/sbin/',
       tries     => 3,
       try_sleep => 3,

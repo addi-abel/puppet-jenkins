@@ -32,9 +32,6 @@ class jenkins::config (
     content => template('jenkins/jenkins.erb'),
   }
 
-  $array_var1      = split($version, '-')
-  $jenkins_version = $array_var1[0]
-
   file {"${home_dir}/config.xml":
     ensure  => present,
     owner   => $user,

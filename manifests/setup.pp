@@ -75,7 +75,6 @@ class jenkins::setup (
     }
   }
 
-
   # and finally restart and load plugins and configs
   exec { 'restart the beast':
     command => 'systemctl restart jenkins',

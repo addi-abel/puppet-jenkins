@@ -1,0 +1,15 @@
+#! /usr/bin/bash
+#
+##  uninstall and remove all traces of jenkins
+#
+
+systemctl stop jenkins
+systemctl disable jenkins
+rm -f /usr/lib/systemd/system/jenkins.service
+rm -rf /var/cache/jenkins /var/log/jenkins /var/lib/jenkins /etc/sysconfig/jenkins*
+rm -rf /opt/puppetlabs/puppet/cache/reports/jenkins* /usr/lib/jenkins
+rm -f /etc/sudoers.d/20_jenkins /etc/yum.repos.d/jenkins.repo /etc/puppetlabs/facter/facts.d/jenkins.yaml
+yum -y erase jenkins git java-1.8.0-openjdk-headless java-1.8.0-openjdk java-1.8.0-openjdk-devel
+
+# check what's left
+locate -e jenkins

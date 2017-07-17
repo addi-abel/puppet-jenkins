@@ -13,7 +13,8 @@ class jenkins::install (
   $package_name       = $jenkins::params::package_name,
   $java_install       = $jenkins::params::java_install,
   $java_package       = $jenkins::params::java_package,
-  $version            = $jenkins::params::version
+  $version            = $jenkins::params::version,
+  $rpm_arch           = $jenkins::params::rpm_arch,
 ) inherits jenkins::params {
 
   notify { "## --->>> Installing package: ${package_name}": }
@@ -22,7 +23,7 @@ class jenkins::install (
 
   # install the Jenkins rpm
   package { 'Jenkins CI':
-    ensure => $version,
+    ensure => "${version}-${rpm_arch}",
     name   => $package_name,
   }
 
@@ -38,16 +39,9 @@ class jenkins::install (
       ensure => present,
     }
     package { 'java-devel':
-      ensure => 'present',
+      ensure => present,
     }
   }
-
-# # Sort out the dreaded selinux:
-# selinux::port { 'allow_jenkins_port':
-#   context  => 'jenkins_port_t',
-#   port     => $ssl_management_port,
-#   protocol => 'tcp',
-# }
 
 }
 

@@ -12,7 +12,8 @@
 class jenkins::params {
 
   $package_name       = 'jenkins'
-  $version            = '2.46.3-1.1.noarch'
+  $version            = '2.60.1'
+  $rpm_arch           = '1.1.noarch'
   $java_install       = true
   $java_package       = 'java-1.8.0-openjdk'
   $jvm_memory         = '512'
@@ -24,9 +25,11 @@ class jenkins::params {
   $repo_server        = 'rpmrepo.abel.uk.com'
   $plugin_cli         = '/var/cache/jenkins/war/WEB-INF/jenkins-cli.jar'
   $plugin_location    = "http://${repo_server}/jenkins-plugins"
+  $plugin_update      = '1'
   $jenkins_url        = 'jenkins/'
   $jenkins_tmp        = '-Djava.io.tmpdir=/var/lib/jenkins/tmp'
   $jenkins_setup      = '-Djenkins.install.runSetupWizard=false'
+  $jenkins_done       = '/etc/puppetlabs/facter/facts.d/jenkins.yaml'
   $ad_enable          = undef
   $ad_name            = 'som2.nats.co.uk'
   $ad_servers         = 'pr-dc001-ds1.som2.nats.co.uk:3268,pr-dc002-ds1.som2.nats.co.uk:3268'

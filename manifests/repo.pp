@@ -10,16 +10,17 @@
 # ===========================
 #
 class jenkins::repo (
-  $package_name = $jenkins::params::package_name
+  $package_name = $jenkins::params::package_name,
+  $repo_server  = $jenkins::params::repo_server
 ) inherits jenkins::params {
 
   notify { "## --->>> Creating yum.repo for: ${package_name}": }
 
   yumrepo {'jenkins':
     descr    => 'Jenkins',
-    baseurl  => 'http://rpmrepo.abel.uk.com/jenkins/redhat-stable/',
+    baseurl  => "http://${repo_server}/pkg.jenkins.io/redhat-stable/",
     gpgcheck => 1,
-    gpgkey   => 'http://rpmrepo.abel.uk.com/jenkins/jenkins-io.key',
+    gpgkey   => "http://${repo_server}/pkg.jenkins.io/jenkins-io.key",
     enabled  => 1,
   }
 
